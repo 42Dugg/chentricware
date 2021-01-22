@@ -167,7 +167,7 @@ void __fastcall hooks::draw_model_execute::hook(void* _this, int edx, i_mat_rend
 
 
 		if (!interfaces::model_render->is_forced() && is_player) {
-			chams.OnDrawModelExecute(ctx, state, info, matrix);
+			chams.on_draw_model_execute(ctx, state, info, matrix);
 			draw_model_execute_original(_this, edx, ctx, state, info, matrix);
 			interfaces::model_render->override_material(nullptr);
 		}
