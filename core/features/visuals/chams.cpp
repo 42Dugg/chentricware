@@ -18,15 +18,6 @@ void Chams::OverrideMaterial(bool ignoreZ, const color& rgba) {
 	interfaces::model_render->override_material(material);
 }
 
-void Chams::OverrideMaterialGlow(bool ignoreZ, const color& rgba) {
-	i_material* material = nullptr;
-	material = materialArmRace = interfaces::material_system->find_material("dev/glow_armsrace.vmt", TEXTURE_GROUP_OTHER);
-	material->set_material_var_flag(material_var_ignorez, ignoreZ);
-	material->alpha_modulate(255.f / 255.0f);
-	material->color_modulate(200.f / 255.0f,100.f / 255.0f, 75.f / 255.0f);
-	interfaces::model_render->override_material(material);
-}
-
 void Chams::OnDrawModelExecute(i_mat_render_context* ctx, const draw_model_state_t& state, const model_render_info_t& info, matrix_t* matrix)
 {
 
