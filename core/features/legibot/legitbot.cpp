@@ -189,9 +189,8 @@ void legitbot::aimbot(c_usercmd* cmd)
 	if (target)
 	{
 		vec3_t eyepos = csgo::local_player->get_eye_pos();
-		vec3_t targethead = target->get_bone_position(get_bone_from_menu());
-		vec3_t nearest = target->get_bone_position(get_nearest_bone(target));
-		vec3_t viewangles = math::calculate_angle(eyepos, targethead);
+		vec3_t targetbone = target->get_bone_position(get_bone_from_menu());
+		vec3_t viewangles = math::calculate_angle(eyepos, targetbone);
 		viewangles.clamp();
 		vec3_t delta = cmd->viewangles - viewangles;
 		delta.clamp();	
