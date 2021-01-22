@@ -21,8 +21,6 @@ void Chams::OverrideMaterial(bool ignoreZ, const color& rgba) {
 void Chams::OnDrawModelExecute(i_mat_render_context* ctx, const draw_model_state_t& state, const model_render_info_t& info, matrix_t* matrix)
 {
 
-//	static auto fnDME = Hooks::mdlrender_hook.get_original<decltype(&Hooks::hkDrawModelExecute)>(index::DrawModelExecute);
-
 	const auto mdl = info.model;
 
 	bool is_arm = strstr(mdl->name, "arms") != nullptr;
