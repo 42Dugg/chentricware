@@ -79,9 +79,9 @@ void hooks::release() {
 bool __stdcall hooks::create_move::hook(float input_sample_frametime, c_usercmd* cmd) {
 	create_move_original(input_sample_frametime, cmd);
 
-	if (!cmd || !cmd->command_number)
+	if (!cmd || !cmd->command_number || )
 		return false;
-
+	
 	csgo::local_player = static_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
 
 	uintptr_t* frame_pointer;
