@@ -18,51 +18,6 @@ int legitbot::get_bone_from_menu() {
 	return bone;
 }
 
-int legitbot::get_nearest_bone(player_t* entity) {
-	auto local_player = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity(interfaces::engine->get_local_player()));
-	if (!local_player)
-		return false;
-
-	float best_dist = 360.f;
-	int aimbone;
-
-	matrix_t matrix[MAXSTUDIOBONES];
-
-	if (!entity->setup_bones(matrix, 128, BONE_USED_BY_HITBOX, 0.0f))
-		return -1;
-
-	studio_hdr_t* studio_model = interfaces::model_info->get_studio_model(entity->model());
-	if (!studio_model)
-		return -1;
-
-	studio_hitbox_set_t* set = studio_model->hitbox_set(entity->hitbox_set());
-	if (!set)
-		return -1;
-
-	for (int i = 0; i < set->hitbox_count; i++) {
-		if (i >= hitbox_max)
-			continue;
-
-		studio_box_t* hitbox = set->hitbox(i);
-
-		if (!hitbox)
-			continue;
-
-		vec3_t view;
-		interfaces::engine->get_view_angles(view);
-
-		auto angle = math::calculate_angle_3(local_player->get_eye_pos(), vec3_t(matrix[hitbox->bone][0][3], matrix[hitbox->bone][1][3], matrix[hitbox->bone][2][3]), view);
-		auto this_dist = std::hypotf(angle.x, angle.y);
-
-		if (best_dist > this_dist) {
-			best_dist = this_dist;
-			aimbone = hitbox->bone;
-			continue;
-		}
-	}
-	return aimbone;
-}
-
 player_t* legitbot::get_best_target(c_usercmd* cmd)
 {
 	float ofov = variables::aimbot_fov;
