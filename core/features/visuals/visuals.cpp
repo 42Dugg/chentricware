@@ -1,9 +1,6 @@
 #include "visuals.hpp"
 #include "../../zgui/zmenu.hpp"
 
-//change the esp so it's getting returned when calling it instead of it being called then returning , mighta affect fps I'm not sure :pensive: :thinking:
-
-
 #define clamp(val, min, max) (((val) > (max)) ? (max) : (((val) < (min)) ? (min) : (val)))
 
 bool visuals::get_playerbox(player_t* ent, box& in) {
