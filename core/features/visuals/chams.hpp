@@ -9,7 +9,6 @@ public:
 
 private:
     void OverrideMaterial(bool ignoreZ, const color& rgba);
-    void OverrideMaterialGlow(bool ignoreZ, const color& rgba);
     i_material* materialFlat = nullptr;
     i_material* materialArmRace = nullptr;
 };// extern Chams chams;
