@@ -101,7 +101,6 @@ bool __stdcall hooks::create_move::hook(float input_sample_frametime, c_usercmd*
 	misc::movement::movement_related(cmd);
 	misc::spam::spam_related();
 
-//	legitbot::aimbot(cmd);
 	legitbot::trigger(cmd);
 	legitbot::group_settings();
 	prediction::start(cmd); {
@@ -176,19 +175,6 @@ void __fastcall hooks::draw_model_execute::hook(void* _this, int edx, i_mat_rend
 			draw_model_execute_original(_this, edx, ctx, state, info, matrix);
 	}
 }
-
-
-/*const char* material_name() {
-
-	switch (variables::chams_group) {
-	case 0:
-		return "debug/debugambientcube";
-		break;
-	case 1:
-		return "models/props_farm/chicken_bday_hat";
-		break;
-	}
-}*/
 
 int __fastcall hooks::do_effect::hook(void* ecx, void* edx, int a1) {
 	visuals::glowesp();
