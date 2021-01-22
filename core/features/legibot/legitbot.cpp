@@ -36,9 +36,8 @@ player_t* legitbot::get_best_target(c_usercmd* cmd)
 			continue;
 
 		vec3_t eye_pos = csgo::local_player->get_eye_pos();
-		vec3_t enemy_head_pos = entity->get_bone_position(get_bone_from_menu());
-		vec3_t nearest = entity->get_bone_position(get_nearest_bone(entity));
-		vec3_t angleTo = math::calculate_angle(eye_pos, enemy_head_pos);
+		vec3_t enemy_bone = entity->get_bone_position(get_bone_from_menu());
+		vec3_t angleTo = math::calculate_angle(eye_pos, enemy_bone);
 		angleTo.clamp();
 		nfov = cmd->viewangles.distance_to(variables::aimbot_rcs ? angleTo - csgo::local_player->aim_punch_angle() * 2.f : angleTo);
 		//nfov = cmd->viewangles.distance_to(angleTo);
