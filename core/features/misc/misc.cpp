@@ -86,16 +86,13 @@ void misc::movement::skate(c_usercmd* cmd) {
 		cmd->buttons ^= in_forward | in_back | in_moveleft | in_moveright;
 }
 
-static void change_clantag(const char* tag, const char* name)
+void SendClanTag(const char* szClanTag, const char* szIdentifier = "")
 {
-	using oChangeClantag = void(__cdecl*)(const char*, const char*);
- 
-	// xref: ClanTagChanged
-	// static function 53 56 57 8B DA 8B F9 FF 15 ? ? ? ? 
-	static oChangeClantag changeClantag = gGlobals.addressesHandler.find<oChangeClantag>("engine.dll",
-		{ 0x53, 0x56, 0x57, 0x8B, 0xDA, 0x8B, 0xF9, 0xFF, 0x15, -1, -1, -1 ,-1 });
- 
-	changeClantag(tag, name);
+	using SendClanTagFn = void(__fastcall*)(const char*, const char*);
+	static auto oSendClanTag = reinterpret_cast<SendClanTagFn>(utilities::pattern_scan("engine.dll", "53 56 57 8B DA 8B F9 FF 15"));
+
+	if (oSendClanTag != nullptr)
+		oSendClanTag(szClanTag, szIdentifier);
 }
 
 void misc::spam::clan_tag()
@@ -105,7 +102,7 @@ void misc::spam::clan_tag()
 		static std::string clantag = "  chnware  ";
 		if (++counter > 30) {
 			rotate(clantag.begin(), clantag.begin() + 1, clantag.end());
-			change_clantag(clantag.c_str());
+			SendClanTag(clantag.c_str());
 			counter = 0;
 		}
 	}
