@@ -359,8 +359,6 @@ void zmenu::menu() {
 				zgui::checkbox("engine crosshair", variables::engine_crosshair);
 				zgui::slider_float("aspectio", 0, 100.f, variables::aspect_ratio);
 				zgui::checkbox("no flash", variables::no_flash);
-				zgui::text("the functions under this sentence , are currently not working");
-				zgui::checkbox("no smoke", variables::no_smoke);
 				break;
 			}
 		}
