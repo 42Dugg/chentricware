@@ -1,9 +1,11 @@
 #include "chams.hpp"
 #include "../../zgui/zmenu.hpp"
 
+//models/props_farm/chicken_bday_hat material for esoterik clown chams
+
 extern hooks::draw_model_execute::fn draw_model_execute_original;
 
-void Chams::OverrideMaterial(bool ignoreZ, const color& rgba) {
+void Chams::override_material(bool ignoreZ, const color& rgba) {
 
 	i_material* material = nullptr;
 
@@ -18,7 +20,7 @@ void Chams::OverrideMaterial(bool ignoreZ, const color& rgba) {
 	interfaces::model_render->override_material(material);
 }
 
-void Chams::OnDrawModelExecute(i_mat_render_context* ctx, const draw_model_state_t& state, const model_render_info_t& info, matrix_t* matrix)
+void Chams::on_draw_model_execute(i_mat_render_context* ctx, const draw_model_state_t& state, const model_render_info_t& info, matrix_t* matrix)
 {
 
 	const auto mdl = info.model;
@@ -49,4 +51,3 @@ void Chams::OnDrawModelExecute(i_mat_render_context* ctx, const draw_model_state
 		}
 	}
 } Chams chams; 
-//extern Chams chams;
