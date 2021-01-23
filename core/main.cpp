@@ -19,11 +19,15 @@ unsigned long WINAPI initialize(void* instance) {
 		MessageBoxA(nullptr, error.what(), "csgo-cheat error!", MB_OK | MB_ICONERROR);
 		FreeLibraryAndExitThread(static_cast<HMODULE>(instance), 0);
 	}
-
+	
 	while (!GetAsyncKeyState(VK_END))
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
-	FreeLibraryAndExitThread(static_cast<HMODULE>(instance), 0);
+	hooks::release();
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+	FreeLibraryAndExitThread(reinterpret_cast<HMODULE>(instance), 0);
+	return 0ul;
 }
 
 unsigned long WINAPI release() {
