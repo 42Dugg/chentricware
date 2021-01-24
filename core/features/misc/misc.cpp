@@ -89,7 +89,7 @@ void misc::movement::skate(c_usercmd* cmd) {
 void send_clan_tag(const char* sz_clanTag, const char* sz_identifier = "")
 {
 	using send_clan_tag_fn = void(__fastcall*)(const char*, const char*);
-	static auto o_send_clanTag = reinterpret_cast<send_clan_tag_fn>(utilities::pattern_scan("engine.dll", "53 56 57 8B DA 8B F9 FF 15"));
+	static auto o_send_clantag = reinterpret_cast<send_clan_tag_fn>(utilities::pattern_scan("engine.dll", "53 56 57 8B DA 8B F9 FF 15"));
 
 	if (o_send_clantag != nullptr)
 		o_send_clantag(sz_clanTag, sz_identifier);
