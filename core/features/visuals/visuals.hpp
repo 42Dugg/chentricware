@@ -47,7 +47,7 @@ namespace visuals {
 
 	void skin_changer();
 
-	void glowesp();
+	void glow_esp();
 
 	void engine_grenade_prediction();
 
