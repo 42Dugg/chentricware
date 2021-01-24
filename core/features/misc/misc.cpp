@@ -86,13 +86,13 @@ void misc::movement::skate(c_usercmd* cmd) {
 		cmd->buttons ^= in_forward | in_back | in_moveleft | in_moveright;
 }
 
-void SendClanTag(const char* szClanTag, const char* szIdentifier = "")
+void send_clan_tag(const char* sz_clanTag, const char* sz_identifier = "")
 {
-	using SendClanTagFn = void(__fastcall*)(const char*, const char*);
-	static auto oSendClanTag = reinterpret_cast<SendClanTagFn>(utilities::pattern_scan("engine.dll", "53 56 57 8B DA 8B F9 FF 15"));
+	using send_clan_tag_fn = void(__fastcall*)(const char*, const char*);
+	static auto o_send_clanTag = reinterpret_cast<send_clan_tag_fn>(utilities::pattern_scan("engine.dll", "53 56 57 8B DA 8B F9 FF 15"));
 
-	if (oSendClanTag != nullptr)
-		oSendClanTag(szClanTag, szIdentifier);
+	if (o_send_clantag != nullptr)
+		o_send_clantag(sz_clanTag, sz_identifier);
 }
 
 void misc::spam::clan_tag()
@@ -102,7 +102,7 @@ void misc::spam::clan_tag()
 		static std::string clantag = "  chnware  ";
 		if (++counter > 30) {
 			rotate(clantag.begin(), clantag.begin() + 1, clantag.end());
-			SendClanTag(clantag.c_str());
+			send_clan_tag(clantag.c_str());
 			counter = 0;
 		}
 	}
