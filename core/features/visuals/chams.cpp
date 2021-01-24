@@ -42,12 +42,12 @@ void Chams::on_draw_model_execute(i_mat_render_context* ctx, const draw_model_st
 				return;
 
 			if (variables::chams_ignore_z) {
-				OverrideMaterial(true, clr_back);
+				override_material(true, clr_back);
 				draw_model_execute_original(interfaces::model_render, 0, ctx, state, info, matrix);
-				OverrideMaterial(false, clr_front);
+				override_material(false, clr_front);
 			}
 			else
-				OverrideMaterial(false, clr_front);
+				override_material(false, clr_front);
 		}
 	}
 } Chams chams; 
