@@ -177,6 +177,6 @@ void __fastcall hooks::draw_model_execute::hook(void* _this, int edx, i_mat_rend
 }
 
 int __fastcall hooks::do_effect::hook(void* ecx, void* edx, int a1) {
-	visuals::glowesp();
+	visuals::glow_esp();
 	return do_effect_original(ecx, edx, a1);
 }
