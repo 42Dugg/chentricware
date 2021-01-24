@@ -478,36 +478,36 @@ void visuals::bomb_defuser_timer(entity_t* entity) {
 
 		//in case we want to draw the timer on the bomb or smth idk
 		vec3_t origin = entity->origin(), w2s;
-		float flblow = entity->m_flC4Blow();
-		float ExplodeTimeRemaining = flblow - (csgo::local_player->get_tick_base() * interfaces::globals->interval_per_tick);
-		float fldefuse = entity->m_flDefuseCountDown();
-		float DefuseTimeRemaining = fldefuse - (csgo::local_player->get_tick_base() * interfaces::globals->interval_per_tick);
-		char TimeToExplode[64]; sprintf_s(TimeToExplode, "Explode in: %.1f", ExplodeTimeRemaining);
-		char TimeToDefuse[64]; sprintf_s(TimeToDefuse, "Defuse in: %.1f", DefuseTimeRemaining);
-		if (ExplodeTimeRemaining > 0 && !entity->m_bBombDefused()) {
-			float fraction = ExplodeTimeRemaining / entity->m_flTimerLength();
-			int onscreenwidth = fraction * x;
+		float fl_blow = entity->m_flC4Blow();
+		float explode_time_remaining = fl_blow - (csgo::local_player->get_tick_base() * interfaces::globals->interval_per_tick);
+		float fl_defuse = entity->m_flDefuseCountDown();
+		float defuse_time_remaining = fl_defuse - (csgo::local_player->get_tick_base() * interfaces::globals->interval_per_tick);
+		char time_to_explode[64]; sprintf_s(time_to_explode, "Explode in: %.1f", explode_time_remaining);
+		char time_to_defuse[64]; sprintf_s(time_to_defuse, "Defuse in: %.1f", defuse_time_remaining);
+		if (explode_time_remaining > 0 && !entity->m_bBombDefused()) {
+			float fraction = explode_time_remaining / entity->m_flTimerLength();
+			int on_screen_width = fraction * x;
 
 			
 
 			if (math::world_to_screen(origin, w2s)) {
 
-				render::text(w2s.x, w2s.y, render::fonts::watermark_font, TimeToExplode, true, color(255, 255, 255));
+				render::text(w2s.x, w2s.y, render::fonts::watermark_font, time_to_explode, true, color(255, 255, 255));
 			}
-			render::draw_filled_rect(0, 0, onscreenwidth, 10, color(0, 255, 100, 255));
+			render::draw_filled_rect(0, 0, on_screen_width, 10, color(0, 255, 100, 255));
 
 		}
 
 		player_t* defuser = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity_handle(entity->m_hBombDefuser()));
 
 		if (defuser) {
-			float fraction = DefuseTimeRemaining / entity->m_flTimerLength();
-			int onscreenwidth = fraction * x;
+			float fraction = defuse_time_remaining / entity->m_flTimerLength();
+			int on_screen_width = fraction * x;
 
 			if (math::world_to_screen(origin, w2s)) {
-				render::text(w2s.x, w2s.y + 12, render::fonts::watermark_font, TimeToDefuse, true, color(255, 255, 255));
+				render::text(w2s.x, w2s.y + 12, render::fonts::watermark_font, time_to_defuse, true, color(255, 255, 255));
 			}
-			render::draw_filled_rect(0, 10, onscreenwidth, 10, color(0, 150, 255, 255));
+			render::draw_filled_rect(0, 10, on_screen_width, 10, color(0, 150, 255, 255));
 		}
 	}
 }
@@ -520,7 +520,7 @@ void visuals::watermark() {
 	render::text(x * 0.01f, y * 0.01f, render::fonts::menu_font, "chnware", false, color(255, 255, 255));
 }
 
-void visuals::glowesp()
+void visuals::glow_esp()
 {
 	if (!variables::glow)
 		return;
@@ -656,20 +656,32 @@ void visuals::player_esp_render(player_t* entity) {
 	visuals::radar(entity);
 
 	if (variables::visible_check && csgo::local_player->can_see_player_pos(entity, entity->get_hitbox_position(hitbox_chest))) {
+		
 		draw_name(entity, bbox);
+		
 		draw_info(entity, bbox);
+		
 		draw_box(entity, bbox);
+		
 		draw_ammo(entity, bbox);
+		
 		draw_weapon(entity, bbox);
+		
 		draw_hp(entity, bbox);
 
 	}
 	else if (!variables::visible_check) {
+		
 		draw_name(entity, bbox);
+		
 		draw_info(entity, bbox);
+		
 		draw_box(entity, bbox);
+		
 		draw_ammo(entity, bbox);
+		
 		draw_weapon(entity, bbox);
+		
 		draw_hp(entity, bbox);
 
 	}
@@ -698,8 +710,11 @@ void visuals::world_loop() {
 		entity_t* entity = reinterpret_cast<entity_t*>(interfaces::entity_list->get_client_entity(i));
 
 		dropped_weapon_esp(reinterpret_cast<weapon_t*>(entity));
+		
 		grenades_draw(entity);
+		
 		chicken_esp(entity);
+		
 		bomb_defuser_timer(entity);
 	}
 }
