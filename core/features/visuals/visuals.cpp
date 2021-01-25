@@ -54,6 +54,7 @@ bool visuals::get_playerbox(player_t* ent, box& in) {
 }
 
 void visuals::draw_box(player_t* entity, visuals::box bbox) {
+	
 	if (!variables::draw_box) 
 		return;
 
@@ -172,7 +173,8 @@ void visuals::draw_weapon(player_t* entity, visuals::box bbox) {
 
 	weapon_t* weapon = reinterpret_cast<weapon_t*>(entity->active_weapon());
 
-	if (!weapon) return;
+	if (!weapon) 
+		return;
 
 	std::string weapon_name = weapon->get_weapon_data()->weapon_name;
 
@@ -215,11 +217,13 @@ void visuals::draw_ammo(player_t* entity, visuals::box bbox) {
 
 	weapon_t* weapon = reinterpret_cast<weapon_t*>(entity->active_weapon());
 
-	if (!weapon) return;
+	if (!weapon) 
+		return;
 
 	int weapon_ammo = weapon->clip1_count();
 
-	if (weapon_ammo < 0) return;
+	if (weapon_ammo < 0)
+		return;
 
 	int weapon_ammo_bar = weapon_ammo * bbox.w / weapon->get_weapon_data()->weapon_max_clip;
 
