@@ -6,11 +6,13 @@
 
 void misc::movement::bunny_hop(c_usercmd* cmd) {
 
-	if (!variables::bhop) return;
+	if (!variables::bhop) 
+		return;
 
 	auto move_type = csgo::local_player->move_type();
 
-	if (move_type == movetype_ladder) return;
+	if (move_type == movetype_ladder) 
+		return;
 
 	if (!(csgo::local_player->flags() & fl_onground))
 		cmd->buttons &= ~in_jump;
@@ -18,12 +20,16 @@ void misc::movement::bunny_hop(c_usercmd* cmd) {
 
 void misc::movement::edge_jump(c_usercmd* cmd) {
 
-	if (!GetAsyncKeyState(0x58)) return;
-	if (!variables::edge) return;
+	if (!GetAsyncKeyState(0x58)) 
+		return;
+	
+	if (!variables::edge) 
+		return;
 
 	auto move_type = csgo::local_player->move_type();
 
-	if (move_type == movetype_ladder) return;
+	if (move_type == movetype_ladder) 
+		return;
 
 	if ((prediction::get_flags() & 1) && !(csgo::local_player->flags() & 1))
 		cmd->buttons |= in_jump;
@@ -31,8 +37,8 @@ void misc::movement::edge_jump(c_usercmd* cmd) {
 }
 
 template<class T, class U>
-inline T clamp_value(T in, U low, U high)
-{
+inline T clamp_value(T in, U low, U high){
+	
 	if (in <= low)
 		return low;
 	else if (in >= high)
@@ -41,8 +47,8 @@ inline T clamp_value(T in, U low, U high)
 		return in;
 }
 
-static vec_t normalize_yaw(vec_t ang)
-{
+static vec_t normalize_yaw(vec_t ang){
+	
 	while (ang < -180.0f)
 		ang += 360.0f;
 	while (ang > 180.0f)
@@ -52,7 +58,8 @@ static vec_t normalize_yaw(vec_t ang)
 
 void misc::movement::strafer(c_usercmd* user_cmd) {
 
-	if (!variables::strafer) return;
+	if (!variables::strafer)
+		return;
 
 	if (!csgo::local_player || !csgo::local_player->is_alive())
 		return;
@@ -80,14 +87,15 @@ void misc::movement::strafer(c_usercmd* user_cmd) {
 
 void misc::movement::skate(c_usercmd* cmd) {
 
-	if (!variables::skate) return;
+	if (!variables::skate) 
+		return;
 
 	if (csgo::local_player && csgo::local_player->move_type() != movetype_ladder)
 		cmd->buttons ^= in_forward | in_back | in_moveleft | in_moveright;
 }
 
-void send_clan_tag(const char* sz_clanTag, const char* sz_identifier = "")
-{
+void send_clan_tag(const char* sz_clanTag, const char* sz_identifier = ""){
+	
 	using send_clan_tag_fn = void(__fastcall*)(const char*, const char*);
 	static auto o_send_clantag = reinterpret_cast<send_clan_tag_fn>(utilities::pattern_scan("engine.dll", "53 56 57 8B DA 8B F9 FF 15"));
 
@@ -95,8 +103,8 @@ void send_clan_tag(const char* sz_clanTag, const char* sz_identifier = "")
 		o_send_clantag(sz_clanTag, sz_identifier);
 }
 
-void misc::spam::clan_tag()
-{
+void misc::spam::clan_tag(){
+	
 	if (variables::clan_tag) {
 		static int counter = 0;
 		static std::string clantag = "  chnware  ";
@@ -109,7 +117,9 @@ void misc::spam::clan_tag()
 }
 
 void misc::spam::chat_spam() {
-	if (!variables::chat_spam) return;
+	
+	if (!variables::chat_spam) 
+		return;
 
 	static int counter = 0;
 	if (++counter >= variables::chat_spam_delay) {
@@ -124,12 +134,17 @@ void misc::spam::chat_spam() {
 }
 
 void misc::movement::movement_related(c_usercmd* cmd) {
+	
 	bunny_hop(cmd);
+	
 	strafer(cmd);
+	
 	skate(cmd);
 }
 
 void misc::spam::spam_related() {
+	
 	chat_spam();
+	
 	clan_tag();
 }
