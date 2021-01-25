@@ -18,8 +18,8 @@ int legitbot::get_bone_from_menu() {
 	return bone;
 }
 
-player_t* legitbot::get_best_target(c_usercmd* cmd)
-{
+player_t* legitbot::get_best_target(c_usercmd* cmd) {
+	
 	float ofov = variables::aimbot_fov;
 	float nfov = 0;
 	player_t* player = nullptr;
@@ -52,6 +52,7 @@ player_t* legitbot::get_best_target(c_usercmd* cmd)
 }
 
 void legitbot::group_settings() {
+	
 	if (!variables::aimbot_check)
 		return;
 	if (!interfaces::engine->is_connected() || !interfaces::engine->is_in_game())
@@ -92,8 +93,8 @@ void legitbot::group_settings() {
 	}
 }
 
-void legitbot::smoothing(vec3_t& viewangle, vec3_t& angle, float smooth_amount)
-{
+void legitbot::smoothing(vec3_t& viewangle, vec3_t& angle, float smooth_amount){
+	
 	angle = (viewangle + (angle - viewangle).clamped() / smooth_amount).clamped();
 }
 
@@ -136,8 +137,7 @@ void legitbot::aimbot_chicken(c_usercmd* cmd) {
 	}
 }
 
-void legitbot::aimbot(c_usercmd* cmd)
-{
+void legitbot::aimbot(c_usercmd* cmd) {
 
 	if (!variables::aimbot_check)
 		return;
@@ -209,8 +209,8 @@ void legitbot::aimbot(c_usercmd* cmd)
 	}
 }
 
-void legitbot::trigger(c_usercmd* cmd) 
-{
+void legitbot::trigger(c_usercmd* cmd) {
+	
 	if (!interfaces::engine->is_connected() || !interfaces::engine->is_in_game())
 		return;
 
