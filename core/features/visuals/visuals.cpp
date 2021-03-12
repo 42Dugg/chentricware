@@ -665,7 +665,5 @@ void visuals::world_loop() {
 		grenades_draw(entity);
 		
 		chicken_esp(entity);
-		
-		bomb_defuser_timer(entity);
 	}
 }
