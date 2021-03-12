@@ -55,8 +55,6 @@ namespace visuals {
 
 	//void nightmode();
 
-	void bomb_defuser_timer(entity_t* entity);
-
 	void no_flash();
 
 	void player_esp_render(player_t* entity);
