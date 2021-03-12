@@ -437,7 +437,7 @@ void visuals::spectator_list_draw() {
 		if (wchar_t name[128]; MultiByteToWideChar(CP_UTF8, 0, player_info.name, -1, name, 128)) {
 			int text_width, text_height;
 			interfaces::surface->get_text_size(render::fonts::watermark_font, name, text_width, text_height);
-			render::text(screen[0] * 0.73f, text_y_offset, render::fonts::watermark_font, name, false, color(255, 255, 255, 255));
+			render::text(screen[0] - text_height - 3, text_y_offset, render::fonts::watermark_font, name, false, color(255, 255, 255, 255));
 			text_y_offset += text_height + 3;
 		}
 	}
@@ -460,59 +460,6 @@ void visuals::chicken_esp(entity_t* chicken) {
 			return;
 
 		render::text(w2s.x, w2s.y, render::fonts::watermark_font, "chicken", true, color(255, 255, 255));
-	}
-}
-
-void visuals::bomb_defuser_timer(entity_t* entity) {
-
-	if (!variables::draw_boom)
-		return;
-
-	if (!entity
-		|| entity == csgo::local_player
-		|| !csgo::local_player)
-		return;
-
-	//we only want the planted c4 ok bitch ass kid !!!
-	if (entity->client_class()->class_id == cplantedc4) {
-		// we want to draw it on our screen not on the entity but if you want we can do both just get the entity.origin by doing this vec3_t origin = entity->origin();  now we just modulate the x and y and boom :O
-
-		int x, y;
-		interfaces::engine->get_screen_size(x, y);
-
-		//in case we want to draw the timer on the bomb or smth idk
-		vec3_t origin = entity->origin(), w2s;
-		float fl_blow = entity->m_flC4Blow();
-		float explode_time_remaining = fl_blow - (csgo::local_player->get_tick_base() * interfaces::globals->interval_per_tick);
-		float fl_defuse = entity->m_flDefuseCountDown();
-		float defuse_time_remaining = fl_defuse - (csgo::local_player->get_tick_base() * interfaces::globals->interval_per_tick);
-		char time_to_explode[64]; sprintf_s(time_to_explode, "Explode in: %.1f", explode_time_remaining);
-		char time_to_defuse[64]; sprintf_s(time_to_defuse, "Defuse in: %.1f", defuse_time_remaining);
-		if (explode_time_remaining > 0 && !entity->m_bBombDefused()) {
-			float fraction = explode_time_remaining / entity->m_flTimerLength();
-			int on_screen_width = fraction * x;
-
-			
-
-			if (math::world_to_screen(origin, w2s)) {
-
-				render::text(w2s.x, w2s.y, render::fonts::watermark_font, time_to_explode, true, color(255, 255, 255));
-			}
-			render::draw_filled_rect(0, 0, on_screen_width, 10, color(0, 255, 100, 255));
-
-		}
-
-		player_t* defuser = reinterpret_cast<player_t*>(interfaces::entity_list->get_client_entity_handle(entity->m_hBombDefuser()));
-
-		if (defuser) {
-			float fraction = defuse_time_remaining / entity->m_flTimerLength();
-			int on_screen_width = fraction * x;
-
-			if (math::world_to_screen(origin, w2s)) {
-				render::text(w2s.x, w2s.y + 12, render::fonts::watermark_font, time_to_defuse, true, color(255, 255, 255));
-			}
-			render::draw_filled_rect(0, 10, on_screen_width, 10, color(0, 150, 255, 255));
-		}
 	}
 }
 
